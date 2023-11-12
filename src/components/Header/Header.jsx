@@ -1,13 +1,42 @@
 import { MdLocationOn } from "react-icons/md";
-import { HiCalendar, HiSearch, HiUserGroup } from "react-icons/hi";
+import {
+  HiCalendar,
+  HiSearch,
+  HiUserGroup,
+  HiMinus,
+  HiPlus,
+} from "react-icons/hi";
+import { useState } from "react";
 
 function Header() {
+
+  
+  const [destination, setDestination] = useState("");
+  const [openOptions, setOpenOptions] = useState(false);
+  const [options, setOptions] = useState({
+    adult: 1,
+    children: 0,
+    room: 1,
+  });
+  const handleOptions = (name, operation) => {
+    setOptions((prev) => {
+      return {
+        ...prev,
+        [name]: operation === "inc" ? options[name] + 1 : options[name] - 1,
+      };
+    });
+    console.log(operation);
+  };
+
+
   return (
     <div className="header">
       <div className="headerSearch">
         <div className="headerSearchItem">
           <MdLocationOn className="headerIcon locationIcon" />
           <input
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
             type="text"
             className="headerSearchInput"
             placeholder="Where to go ?"
@@ -26,8 +55,15 @@ function Header() {
         </div>
         <div className="headerSearchItem" style={{ border: "none" }}>
           <button className="btn headerSearchBtn">
-            <HiUserGroup className="headerIcon" id="optionDropDown" />
+            <HiUserGroup
+              className="headerIcon"
+              id="optionDropDown"
+              onClick={() => setOpenOptions(!openOptions)}
+            />
           </button>
+          {openOptions && (
+            <GuestOptionList options={options} handleOptions={handleOptions} />
+          )}
         </div>
         <div className="headerSearchItem">
           <div className="headerBtn">
@@ -42,3 +78,56 @@ function Header() {
 }
 
 export default Header;
+
+function GuestOptionList({ options, handleOptions }) {
+  return (
+    <div className="guestOptions">
+      <span className="guestOptionsTitle">
+        {options.adult} Adult &bull; {options.children} Children &bull;
+        {options.room} Room
+      </span>
+      <OpenItem
+        options={options}
+        type="adult"
+        minLimit={1}
+        handleOptions={handleOptions}
+      />
+      <OpenItem
+        options={options}
+        type="children"
+        minLimit={0}
+        handleOptions={handleOptions}
+      />
+      <OpenItem
+        options={options}
+        type="room"
+        minLimit={1}
+        handleOptions={handleOptions}
+      />
+    </div>
+  );
+}
+
+function OpenItem({ options, type, minLimit, handleOptions }) {
+  return (
+    <div className="guestOptionItem">
+      <span className="optionText">{type}</span>
+      <div className="optionCounter">
+        <button
+          className="optionCounterBtn"
+          disabled={options[type] <= minLimit}
+          onClick={() => handleOptions(type, "dec")}
+        >
+          <HiMinus />
+        </button>
+        <span className="optionCounterNumber">{options[type]}</span>
+        <button
+          className="optionCounterBtn"
+          onClick={() => handleOptions(type, "inc")}
+        >
+          <HiPlus />
+        </button>
+      </div>
+    </div>
+  );
+}
