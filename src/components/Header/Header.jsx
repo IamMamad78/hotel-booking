@@ -8,6 +8,9 @@ import {
 } from "react-icons/hi";
 import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
 
 function Header() {
   const [destination, setDestination] = useState("");
@@ -17,6 +20,15 @@ function Header() {
     children: 0,
     room: 1,
   });
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const [openDate, setOpenDate] = useState(false);
+
   const handleOptions = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -27,6 +39,11 @@ function Header() {
     console.log(operation);
   };
 
+  const styles = {
+    border: "1px solid #ebe9e9",
+    borderRadius: "5px",
+    maxWidth: "260px",
+  };
   return (
     <div className="header">
       <div className="headerSearch">
@@ -48,8 +65,18 @@ function Header() {
           style={{ border: "none" }}
         >
           <button className="btn headerSearchBtn">
-            <HiCalendar className="headerIcon dateDropDown" />
+            <HiCalendar
+              className="headerIcon dateDropDown"
+              onClick={() => setOpenDate(!openDate)}
+            />
           </button>
+          <DateOptions
+            openDate={openDate}
+            setOpenDate={setOpenDate}
+            date={date}
+            setDate={setDate}
+            styles={styles}
+          />
         </div>
         <div className="headerSearchItem" style={{ border: "none" }}>
           <button className="btn headerSearchBtn">
@@ -132,6 +159,23 @@ function OpenItem({ options, type, minLimit, handleOptions }) {
           <HiPlus />
         </button>
       </div>
+    </div>
+  );
+}
+
+function DateOptions({ openDate, setOpenDate, date, setDate, styles }) {
+  return (
+    <div>
+      {openDate && (
+        <DateRange
+          style={styles}
+          ranges={date}
+          className="date"
+          onChange={(item) => setDate([item.selection])}
+          minDate={new Date()}
+          moveRangeOnFirstSelection={true}
+        />
+      )}
     </div>
   );
 }
