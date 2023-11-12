@@ -164,8 +164,10 @@ function OpenItem({ options, type, minLimit, handleOptions }) {
 }
 
 function DateOptions({ openDate, setOpenDate, date, setDate, styles }) {
+  const optionsRef = useRef();
+  useOutsideClick(optionsRef, "dateDropDown", () => setOpenDate(false));
   return (
-    <div>
+    <div ref={optionsRef}>
       {openDate && (
         <DateRange
           style={styles}
