@@ -6,11 +6,10 @@ import {
   HiMinus,
   HiPlus,
 } from "react-icons/hi";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function Header() {
-
-  
   const [destination, setDestination] = useState("");
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
@@ -27,7 +26,6 @@ function Header() {
     });
     console.log(operation);
   };
-
 
   return (
     <div className="header">
@@ -62,7 +60,11 @@ function Header() {
             />
           </button>
           {openOptions && (
-            <GuestOptionList options={options} handleOptions={handleOptions} />
+            <GuestOptionList
+              options={options}
+              handleOptions={handleOptions}
+              setOpenOptions={setOpenOptions}
+            />
           )}
         </div>
         <div className="headerSearchItem">
@@ -79,9 +81,11 @@ function Header() {
 
 export default Header;
 
-function GuestOptionList({ options, handleOptions }) {
+function GuestOptionList({ options, handleOptions, setOpenOptions }) {
+  const optionsRef = useRef();
+  useOutsideClick(optionsRef, "optionDropDown", () => setOpenOptions(false));
   return (
-    <div className="guestOptions">
+    <div className="guestOptions" ref={optionsRef}>
       <span className="guestOptionsTitle">
         {options.adult} Adult &bull; {options.children} Children &bull;
         {options.room} Room
