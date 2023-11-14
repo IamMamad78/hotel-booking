@@ -1,6 +1,6 @@
 import useFetch from "../../hooks/useFetch";
 
-function LocationLiast() {
+function LocationList() {
   const { data, isLoading } = useFetch("http://localhost:5000/hotels", "");
 
   if (isLoading) return <p>Loading...</p>;
@@ -29,4 +29,4 @@ function LocationLiast() {
   );
 }
 
-export default LocationLiast;
+export default LocationList;
