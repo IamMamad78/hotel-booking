@@ -6,13 +6,13 @@ import { HiArrowCircleLeft } from "react-icons/hi";
 
 function SingleBookmark() {
   const { id } = useParams();
-  const { getBookmark, isLoadingCurrBookmark, currentBookmark } = useBookmark();
+  const { getBookmark, isLoading, currentBookmark } = useBookmark();
   const navigate = useNavigate();
   useEffect(() => {
     getBookmark(id);
   }, [id]);
 
-  if (isLoadingCurrBookmark || !currentBookmark) return <p>Loading...</p>;
+  if (isLoading || !currentBookmark) return <p>Loading...</p>;
   return (
     <div>
       <button onClick={() => navigate(-1)} className="btn btn--back">
