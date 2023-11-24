@@ -1,4 +1,4 @@
-import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn, MdLogout, MdPerson } from "react-icons/md";
 import {
   HiCalendar,
   HiSearch,
@@ -18,6 +18,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
+import { useAuth } from "../../context/AuthProvider";
 
 function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -126,6 +127,7 @@ function Header() {
                 <HiBookmark className="bookmarkIcon" />
               </button>
             </NavLink>
+            <User />
           </div>
         </div>
       </div>
@@ -204,6 +206,30 @@ function DateOptions({ openDate, setOpenDate, date, setDate, styles }) {
           minDate={new Date()}
           moveRangeOnFirstSelection={true}
         />
+      )}
+    </div>
+  );
+}
+
+function User() {
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useAuth();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+  return (
+    <div>
+      {isAuthenticated ? (
+        <button className="headerSearchBtn">
+          <MdLogout onClick={handleLogout} className="bookmarkIcon" />
+        </button>
+      ) : (
+        <NavLink to="/login">
+          <button className="headerSearchBtn">
+            <MdPerson className="bookmarkIcon" />
+          </button>
+        </NavLink>
       )}
     </div>
   );
