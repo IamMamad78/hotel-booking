@@ -5,6 +5,7 @@ import {
   HiUserGroup,
   HiMinus,
   HiPlus,
+  HiBookmark,
 } from "react-icons/hi";
 import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
@@ -12,6 +13,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
 import {
+  NavLink,
   createSearchParams,
   useNavigate,
   useSearchParams,
@@ -119,6 +121,11 @@ function Header() {
             <button className="headerSearchBtn" onClick={handleSearch}>
               <HiSearch className="headerIcon" />
             </button>
+            <NavLink to="/bookmark">
+              <button className="headerSearchBtn">
+                <HiBookmark className="bookmarkIcon" />
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>
