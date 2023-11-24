@@ -1325,24 +1325,6 @@
   ],
   "bookmarks": [
     {
-      "cityName": "Amsterdam",
-      "country": "Netherlands (the)",
-      "countryCode": "NL",
-      "latitude": "52.363692756596194",
-      "longitude": "4.894087901782501",
-      "host_location": "Amsterdam Netherlands (the)",
-      "id": 2
-    },
-    {
-      "cityName": "Paris",
-      "country": "France",
-      "countryCode": "FR",
-      "latitude": "48.817002062798394",
-      "longitude": "2.3510742187500004",
-      "host_location": "Paris France",
-      "id": 3
-    },
-    {
       "cityName": "As Salman",
       "country": "Iraq",
       "countryCode": "IQ",
@@ -1359,6 +1341,15 @@
       "longitude": "47.0269775390625",
       "host_location": "Sanandaj Iran (Islamic Republic of)",
       "id": 5
+    },
+    {
+      "cityName": "‘Afrin",
+      "country": "Syrian Arab Republic (the)",
+      "countryCode": "SY",
+      "latitude": "36.504859840485054",
+      "longitude": "36.89071655273438",
+      "host_location": "‘Afrin Syrian Arab Republic (the)",
+      "id": 6
     }
   ]
 }
