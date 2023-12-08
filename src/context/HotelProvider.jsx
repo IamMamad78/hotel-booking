@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import axios from "axios";
 import toast from "react-hot-toast";
 const HotelContext = createContext();
-const BASE_URL = "http://localhost:5000/hotels";
+const BASE_URL = "https://find-hotel-u0uj.onrender.com/hotels";
 
 function HotelProvider({ children }) {
   const [currentHotel, setCurrentHotel] = useState(null);
